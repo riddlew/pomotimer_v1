@@ -1,13 +1,10 @@
-import { useState } from "react";
+import { Container } from "./common/styled/common.styled";
+import MainTimer from "./components/MainTimer/MainTimer";
 
-function App() {
-	const [count, setCount] = useState(0);
-
+export default function App() {
 	return (
-		<div>
-			<h1>Vite + React</h1>
-		</div>
+		<Container>
+			<MainTimer />
+		</Container>
 	);
 }
-
-export default App;
