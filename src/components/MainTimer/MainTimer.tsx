@@ -8,27 +8,18 @@ import {
 	selectTime,
 	setIsRunning,
 	setTime,
+	switchToNextTimer,
+	switchToPreviousTimer,
 } from "../../slices/timerSlice";
-import CircularProgressBar from "./CircularProgressBar";
+import {
+	TimerClockContainer,
+	TimerContainer,
+	TimerParent,
+} from "./MainTimer.styled";
+import SquareProgressBar from "./SquareProgressBar";
+import TimerButton from "./TimerButton";
 
-// interface MainTimerProps {
-// 	time: number;
-// 	isRunning: boolean;
-// 	handlePause: () => void;
-// 	addTimeFn: (n: number) => void;
-// }
-
-// export default function MainTimer({
-// time,
-// addTimeFn,
-// isRunning,
-// handlePause,
-// }: MainTimerProps) {
 export default function MainTimer() {
-	const [isMenuOpen, setMenuOpen] = useState(false);
-	const menuItems = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60];
-	// const menuItems = [5, 10, 15, 20, 25];
-
 	const dispatch = useAppDispatch();
 	const time = useAppSelector(selectTime);
 	const startTime = useAppSelector(selectStartTime);
@@ -41,13 +32,22 @@ export default function MainTimer() {
 
 	const handleReset = () => {
 		dispatch(resetTime(startTime));
-		dispatch(setIsRunning(false));
+	};
+
+	const handleForward = () => {
+		dispatch(switchToNextTimer());
+	};
+
+	const handlePrevious = () => {
+		dispatch(switchToPreviousTimer());
 	};
 
 	useEffect(() => {
 		function updateTime() {
 			if (isRunning && time > 0) {
 				dispatch(setTime(time - 1));
+			} else if (isRunning && time <= 0) {
+				// dispatch(switchToNextTimer());
 			}
 		}
 		const interval = setInterval(updateTime, 1000);
@@ -61,15 +61,37 @@ export default function MainTimer() {
 	}, [time, startTime]);
 
 	return (
-		<div>
-			<Time time={time} />
-			<button type="button" onClick={handlePause}>
-				{isRunning ? "Pause" : "Play"}
-			</button>
-			<button type="button" onClick={handleReset}>
-				Reset
-			</button>
-			<CircularProgressBar percent={progress} />
-		</div>
+		<TimerParent>
+			<TimerContainer>
+				<TimerClockContainer>
+					<SquareProgressBar percent={progress} />
+					<Time time={time} />
+				</TimerClockContainer>
+				<div
+					style={{
+						display: "flex",
+						justifyContent: "space-around",
+						width: "100%",
+					}}
+				>
+					<TimerButton
+						clickHandler={handlePrevious}
+						icon="bi-arrow-left-circle"
+					/>
+					<TimerButton
+						clickHandler={handlePause}
+						icon={isRunning ? "bi-pause-fill" : "bi-play"}
+					/>
+					<TimerButton
+						clickHandler={handleReset}
+						icon="bi-arrow-counterclockwise"
+					/>
+					<TimerButton
+						clickHandler={handleForward}
+						icon="bi-arrow-right-circle"
+					/>
+				</div>
+			</TimerContainer>
+		</TimerParent>
 	);
 }
