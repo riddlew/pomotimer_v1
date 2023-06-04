@@ -47,7 +47,7 @@ export default function MainTimer() {
 			if (isRunning && time > 0) {
 				dispatch(setTime(time - 1));
 			} else if (isRunning && time <= 0) {
-				// dispatch(switchToNextTimer());
+				dispatch(setIsRunning(false));
 			}
 		}
 		const interval = setInterval(updateTime, 1000);

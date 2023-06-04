@@ -53,6 +53,7 @@ export const timerSlice = createSlice({
 		resetTime: (state, action: PayloadAction<number>) => {
 			state.timerQueue[state.currentTimerIdx].time = action.payload;
 			state.timerQueue[state.currentTimerIdx].startTime = action.payload;
+			state.isRunning = false;
 		},
 		setIsRunning: (state, action: PayloadAction<boolean>) => {
 			state.isRunning = action.payload;
@@ -65,12 +66,13 @@ export const timerSlice = createSlice({
 				state.currentTimerIdx++;
 			} else {
 				state.timerQueue[state.currentTimerIdx].time = 0;
-				state.isRunning = false;
 			}
+			state.isRunning = false;
 		},
 		switchToPreviousTimer: (state) => {
 			state.timerQueue[state.currentTimerIdx].time =
 				state.timerQueue[state.currentTimerIdx].startTime;
+			state.isRunning = false;
 
 			if (state.currentTimerIdx > 0) {
 				state.currentTimerIdx--;
