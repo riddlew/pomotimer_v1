@@ -17,20 +17,20 @@ const initialState: TimerState = {
 	isRunning: false,
 	timerQueue: [
 		{
-			time: 5,
-			startTime: 5,
+			time: 3,
+			startTime: 3,
 		},
 		{
 			time: 5,
 			startTime: 5,
 		},
 		{
-			time: 5,
-			startTime: 5,
+			time: 6,
+			startTime: 6,
 		},
 		{
-			time: 5,
-			startTime: 5,
+			time: 7,
+			startTime: 7,
 		},
 		{
 			time: 10,
@@ -70,6 +70,9 @@ export const timerSlice = createSlice({
 			} else {
 				state.timerQueue[state.currentTimerIdx].time = 0;
 			}
+
+			state.timerQueue[state.currentTimerIdx].time =
+				state.timerQueue[state.currentTimerIdx].startTime;
 			state.isRunning = false;
 		},
 		switchToPreviousTimer: (state) => {
