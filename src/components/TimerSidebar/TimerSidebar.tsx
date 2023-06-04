@@ -12,8 +12,10 @@ export default function TimerSidebar() {
 			<SC.TimerList>
 				{timers.map((timer, i) => (
 					<SidebarTimer
+						key={`SidebarTimer-${i}`}
 						selected={currentIdx === i}
 						text={timer.startTime}
+						timerIndex={i}
 					/>
 				))}
 			</SC.TimerList>

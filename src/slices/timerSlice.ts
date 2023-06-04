@@ -60,6 +60,9 @@ export const timerSlice = createSlice({
 		},
 		setCurrent: (state, action: PayloadAction<number>) => {
 			state.currentTimerIdx = action.payload;
+			state.timerQueue[state.currentTimerIdx].time =
+				state.timerQueue[state.currentTimerIdx].startTime;
+			state.isRunning = false;
 		},
 		switchToNextTimer: (state) => {
 			if (state.currentTimerIdx < state.timerQueue.length - 1) {
@@ -87,6 +90,7 @@ export const {
 	setTime,
 	resetTime,
 	setIsRunning,
+	setCurrent,
 	switchToNextTimer,
 	switchToPreviousTimer,
 } = timerSlice.actions;
