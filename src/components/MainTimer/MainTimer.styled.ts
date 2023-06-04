@@ -2,21 +2,32 @@ import styled from "styled-components";
 import { breakpoints } from "../../common/breakpoints";
 
 export const TimerParent = styled.div`
-	width: 100vw;
-	height: 100vh;
 	display: grid;
-	align-items: center;
+	align-items: flex-start;
 	justify-content: center;
 	position: relative;
+
+	@media screen and (min-width: ${breakpoints.sm}) and (min-height: 400px) {
+		height: 100vh;
+		align-items: center;
+	}
+
+	@media screen and (min-height: 400px) {
+		width: 100vw;
+	}
 `;
 
 export const TimerContainer = styled.div`
 	position: relative;
 	display: flex;
-	height: 100%;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: flex-start;
 	align-items: center;
+
+	@media screen and (min-width: ${breakpoints.sm}) and (min-height: 400px) {
+		justify-content: center;
+		height: 100%;
+	}
 `;
 
 export const TimerClockContainer = styled.div`
@@ -25,7 +36,7 @@ export const TimerClockContainer = styled.div`
 	align-items: center;
 	justify-content: center;
 
-	@media screen and (min-width: ${breakpoints.xs}) and (min-height: 400px) {
+	@media screen and (min-width: ${breakpoints.sm}) and (min-height: 400px) {
 		width: 400px;
 		height: 300px;
 	}
