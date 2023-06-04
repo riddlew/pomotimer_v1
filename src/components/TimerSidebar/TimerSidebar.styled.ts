@@ -2,23 +2,25 @@ import styled from "styled-components";
 import { breakpoints } from "../../common/breakpoints";
 
 export const TimerSidebar = styled.div`
-	margin: 8px;
+	overflow-y: scroll;
+	height: 100%;
+	width: 100%;
 
 	@media screen and (min-width: ${breakpoints.sm}) and (min-height: 400px) {
-		margin: 20px;
+		max-width: 300px;
 	}
 `;
 
 export const TimerList = styled.ul`
 	padding: 0;
-	margin: 0;
+	margin: 8px;
 	list-style: none;
 	display: flex;
-	justify-content: center;
+	justify-content: flex-start;
 	flex-direction: column;
 	gap: 8px;
 
 	@media screen and (min-width: ${breakpoints.sm}) and (min-height: 400px) {
-		min-width: 200px;
+		margin: 20px;
 	}
 `;
