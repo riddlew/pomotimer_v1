@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch } from "../../hooks/redux";
 import { addTimer } from "../../slices/timerSlice";
-import { AddTimerButton } from "./AddTimer.styled";
+import { AddTimerButton, AddTimerIcon } from "./AddTimer.styled";
 import { TimerText } from "./SidebarTimer.styled";
 
 interface AddTimerProps {
@@ -30,7 +30,7 @@ export default function AddTimer({ scrollRef }: AddTimerProps) {
 	return (
 		<AddTimerButton onClick={handleAddTimer}>
 			<TimerText>
-				<i className="bi-plus" />
+				<AddTimerIcon className="bi-plus" />
 			</TimerText>
 		</AddTimerButton>
 	);
