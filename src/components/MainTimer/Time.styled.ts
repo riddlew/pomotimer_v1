@@ -22,10 +22,15 @@ const Input = styled.input`
 	grid-area: 1 / 1;
 	margin: 0 auto;
 	width: min(65vw, 55vh);
+	background-color: transparent;
+	border: max(2px, min(2vw, 1.5vh)) dashed white;
+	border-radius: max(4px, min(4vw, 4vh));
 
 	@media screen and (min-width: ${breakpoints.xs}) and (min-height: 400px) {
 		font-size: 96px;
 		width: 300px;
+		border-size: 4px;
+		border-radius: 12px;
 	}
 `;
 
