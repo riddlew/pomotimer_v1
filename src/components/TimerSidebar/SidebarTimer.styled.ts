@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { breakpoints } from "../../common/breakpoints";
 
 interface TimerLiProps {
-	selected: boolean;
+	selected?: boolean;
 }
 
 export const TimerLi = styled.li<TimerLiProps>`

@@ -10,6 +10,7 @@ interface TimerState {
 	currentTimerIdx: number;
 	isRunning: boolean;
 	timerQueue: Timer[];
+	editing: boolean;
 }
 
 const initialState: TimerState = {
@@ -41,6 +42,7 @@ const initialState: TimerState = {
 			startTime: 20,
 		},
 	],
+	editing: false,
 };
 
 export const timerSlice = createSlice({
@@ -86,6 +88,25 @@ export const timerSlice = createSlice({
 					state.timerQueue[state.currentTimerIdx].startTime;
 			}
 		},
+		addTimer: (state, action: PayloadAction<number>) => {
+			state.timerQueue.push({
+				time: action.payload,
+				startTime: action.payload,
+			});
+		},
+		deleteCurrentTimer: (state) => {
+			if (state.timerQueue.length === 1) return;
+
+			state.isRunning = false;
+			state.timerQueue.splice(state.currentTimerIdx, 1);
+
+			if (state.currentTimerIdx > state.timerQueue.length - 1) {
+				state.currentTimerIdx--;
+			}
+		},
+		toggleEdit: (state) => {
+			state.editing = !state.editing;
+		},
 	},
 });
 
@@ -96,6 +117,9 @@ export const {
 	setCurrent,
 	switchToNextTimer,
 	switchToPreviousTimer,
+	addTimer,
+	deleteCurrentTimer,
+	toggleEdit,
 } = timerSlice.actions;
 
 export const selectTime = (state: RootState) =>
@@ -106,5 +130,6 @@ export const selectIsRunning = (state: RootState) => state.timer.isRunning;
 export const selectTimerQueue = (state: RootState) => state.timer.timerQueue;
 export const selectRunningIdx = (state: RootState) =>
 	state.timer.currentTimerIdx;
+export const selectEditing = (state: RootState) => state.timer.editing;
 
 export default timerSlice.reducer;

@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import Time from "./Time";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import {
+	deleteCurrentTimer,
 	resetTime,
+	selectEditing,
 	selectIsRunning,
 	selectStartTime,
 	selectTime,
@@ -10,6 +12,7 @@ import {
 	setTime,
 	switchToNextTimer,
 	switchToPreviousTimer,
+	toggleEdit,
 } from "../../slices/timerSlice";
 import {
 	TimerClockContainer,
@@ -24,9 +27,13 @@ export default function MainTimer() {
 	const time = useAppSelector(selectTime);
 	const startTime = useAppSelector(selectStartTime);
 	const isRunning = useAppSelector(selectIsRunning);
+	const editing = useAppSelector(selectEditing);
 	const [progress, setProgress] = useState(100);
 
 	const handlePause = () => {
+		if (editing) {
+			dispatch(toggleEdit());
+		}
 		dispatch(setIsRunning(!isRunning));
 	};
 
@@ -40,6 +47,15 @@ export default function MainTimer() {
 
 	const handlePrevious = () => {
 		dispatch(switchToPreviousTimer());
+	};
+
+	const handleDelete = () => {
+		dispatch(deleteCurrentTimer());
+	};
+
+	const handleEdit = () => {
+		dispatch(setIsRunning(false));
+		dispatch(toggleEdit());
 	};
 
 	useEffect(() => {
@@ -57,7 +73,7 @@ export default function MainTimer() {
 	}, [time, isRunning, dispatch]);
 
 	useEffect(() => {
-		setProgress((time / startTime) * 100);
+		setProgress(startTime === 0 ? 0 : (time / startTime) * 100);
 	}, [time, startTime]);
 
 	return (
@@ -90,6 +106,8 @@ export default function MainTimer() {
 						clickHandler={handleForward}
 						icon="bi-arrow-right-circle"
 					/>
+					<TimerButton clickHandler={handleDelete} icon="bi-trash" />
+					<TimerButton clickHandler={handleEdit} icon="bi-pencil" />
 				</div>
 			</TimerContainer>
 		</TimerParent>
