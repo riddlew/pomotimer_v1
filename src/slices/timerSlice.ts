@@ -96,6 +96,9 @@ export const timerSlice = createSlice({
 				time: action.payload,
 				startTime: action.payload,
 			});
+			state.currentTimerIdx = state.timerQueue.length - 1;
+			state.editing = true;
+			state.isRunning = false;
 		},
 		deleteCurrentTimer: (state) => {
 			if (state.timerQueue.length === 1) return;
