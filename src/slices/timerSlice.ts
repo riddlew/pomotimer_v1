@@ -70,7 +70,7 @@ export const timerSlice = createSlice({
 			if (state.currentTimerIdx < state.timerQueue.length - 1) {
 				state.currentTimerIdx++;
 			} else {
-				state.timerQueue[state.currentTimerIdx].time = 0;
+				state.currentTimerIdx = 0;
 			}
 
 			state.timerQueue[state.currentTimerIdx].time =
@@ -84,9 +84,12 @@ export const timerSlice = createSlice({
 
 			if (state.currentTimerIdx > 0) {
 				state.currentTimerIdx--;
-				state.timerQueue[state.currentTimerIdx].time =
-					state.timerQueue[state.currentTimerIdx].startTime;
+			} else {
+				state.currentTimerIdx = state.timerQueue.length - 1;
 			}
+
+			state.timerQueue[state.currentTimerIdx].time =
+				state.timerQueue[state.currentTimerIdx].startTime;
 		},
 		addTimer: (state, action: PayloadAction<number>) => {
 			state.timerQueue.push({
