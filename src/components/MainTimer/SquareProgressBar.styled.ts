@@ -4,7 +4,7 @@ import { breakpoints } from "../../common/breakpoints";
 export const BarSvg = styled.svg`
 	grid-area: 1 / 1;
 	width: min(100vw, 100vh);
-	height: min(75vw, 75vh);
+	height: min(75vw, 60vh);
 
 	@media screen and (min-width: ${breakpoints.xs}) and (min-height: 400px) {
 		width: 400px;

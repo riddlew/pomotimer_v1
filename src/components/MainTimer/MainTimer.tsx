@@ -86,8 +86,9 @@ export default function MainTimer() {
 				<div
 					style={{
 						display: "flex",
-						justifyContent: "space-around",
+						justifyContent: "center",
 						width: "100%",
+						flexWrap: "wrap",
 					}}
 				>
 					<TimerButton
