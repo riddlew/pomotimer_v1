@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import formatTime from "../../common/helpers/formatTime";
 import { useAppDispatch } from "../../hooks/redux";
 import { setCurrent } from "../../slices/timerSlice";
@@ -9,22 +10,45 @@ interface SidebarTimerProps {
 	timerIndex: number;
 }
 
-export default function SidebarTimer({
-	text,
-	selected,
-	timerIndex,
-}: SidebarTimerProps) {
-	const dispatch = useAppDispatch();
+// export default function SidebarTimer({
+// 	text,
+// 	selected,
+// 	timerIndex,
+// }: SidebarTimerProps) {
+// 	const dispatch = useAppDispatch();
 
-	const handleClick = () => {
-		dispatch(setCurrent(timerIndex));
-	};
+// 	const handleClick = () => {
+// 		dispatch(setCurrent(timerIndex));
+// 	};
 
-	return (
-		<SC.TimerLi selected={selected} onClick={handleClick}>
-			<SC.TimerText>
-				{typeof text === "string" ? text : formatTime(text)}
-			</SC.TimerText>
-		</SC.TimerLi>
-	);
-}
+// 	return (
+// 		<SC.TimerLi selected={selected} onClick={handleClick}>
+// 			<SC.TimerText>
+// 				{typeof text === "string" ? text : formatTime(text)}
+// 			</SC.TimerText>
+// 		</SC.TimerLi>
+// 	);
+// }
+
+const SidebarTimer = forwardRef(
+	(
+		{ text, selected, timerIndex }: SidebarTimerProps,
+		ref: React.ForwardedRef<HTMLLIElement>
+	) => {
+		const dispatch = useAppDispatch();
+
+		const handleClick = () => {
+			dispatch(setCurrent(timerIndex));
+		};
+
+		return (
+			<SC.TimerLi ref={ref} selected={selected} onClick={handleClick}>
+				<SC.TimerText>
+					{typeof text === "string" ? text : formatTime(text)}
+				</SC.TimerText>
+			</SC.TimerLi>
+		);
+	}
+);
+
+export default SidebarTimer;

@@ -4,28 +4,12 @@ import { addTimer } from "../../slices/timerSlice";
 import { AddTimerButton, AddTimerIcon } from "./AddTimer.styled";
 import { TimerText } from "./SidebarTimer.styled";
 
-interface AddTimerProps {
-	scrollRef: React.RefObject<HTMLDivElement>;
-}
-
-export default function AddTimer({ scrollRef }: AddTimerProps) {
+export default function AddTimer() {
 	const dispatch = useAppDispatch();
-	const [shouldScroll, setShouldScroll] = useState(false);
 
 	const handleAddTimer = () => {
 		dispatch(addTimer(10));
-		setShouldScroll(true);
 	};
-
-	useEffect(() => {
-		if (!shouldScroll) return;
-
-		scrollRef.current?.scroll({
-			top: scrollRef.current?.scrollHeight,
-			behavior: "smooth",
-		});
-		setShouldScroll(false);
-	}, [scrollRef, shouldScroll]);
 
 	return (
 		<AddTimerButton onClick={handleAddTimer}>
