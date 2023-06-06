@@ -18,28 +18,8 @@ const initialState: TimerState = {
 	isRunning: false,
 	timerQueue: [
 		{
-			time: 3,
-			startTime: 3,
-		},
-		{
-			time: 5,
-			startTime: 5,
-		},
-		{
-			time: 6,
-			startTime: 6,
-		},
-		{
-			time: 7,
-			startTime: 7,
-		},
-		{
 			time: 10,
 			startTime: 10,
-		},
-		{
-			time: 20,
-			startTime: 20,
 		},
 	],
 	editing: false,
